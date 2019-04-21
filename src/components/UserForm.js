@@ -29,7 +29,7 @@ class UserForm extends Component {
 
     return(
       <form onSubmit={ this.submitForm }>
-        <label htmlFor="url"> <strong>Show open issues for </strong></label>
+        <label htmlFor="url"> <strong>Show user info for </strong></label>
         <input
           id="url"
           type="text"
