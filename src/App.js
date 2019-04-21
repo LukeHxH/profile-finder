@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { GET_ORGANIZATION } from './queries/queries';
 import { REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN } from './config';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
-const axiosGithubGraphQL = axios.create({
-  baseURL: 'https://api.github.com/graphql',
-  headers: {
-    Authorization: `Bearer ${
-      REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN
-    }`
+// components
+import UserForm from './components/UserForm';
+import User from './components/User';
+
+const client = new ApolloClient({
+  uri: 'https://api.github.com/graphql',
+  request: operation => {
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN}`
+      }
+    });
   }
 });
 
@@ -16,58 +22,32 @@ const TITLE = 'Profile finder Application';
 
 class App extends Component {
   state = {
-    path: 'https://github.com/OpenDevUFCG/OpenDevUFCG',
-    organization: null,
-    errors: null
-  }
-
-  onFetchFromGithub = () => {
-    axiosGithubGraphQL
-      .post('', { query: GET_ORGANIZATION })
-      .then( result => 
-        this.setState(() => ({
-          organization: result.data.data.organization,
-          errors: result.data.errors
-        }))
-      );
+    user: "LukeHxH"
   }
 
   componentDidMount() {
-    this.onFetchFromGithub();
+    // fetchDataFromGithub
   };
 
-  bindPath = event => {
-    this.setState({ path: event.target.value });
-  };
-
-  submitForm = event => {
+  submitForm = (state) => {
     // fetch Data
 
-    event.preventDefault();
-    console.log(this.state.path);
+    this.setState(state);
   }
 
   render() {
-    const { path } = this.state;
-
     return (
-      <div>
-        <header>
-          <p> {TITLE} </p>
-        </header>
+      <ApolloProvider client={client}>
+        <div id="main">
+          <header>
+            <h1> {TITLE} </h1>
+          </header>
 
-        <form onSubmit={ this.submitForm }>
-          <label htmlFor="url"> Show open issues for </label>
-          <input 
-            id="url"
-            type="text"
-            value={ path }
-            onChange={ this.bindPath }
-            style={ {width: '300px'} } />
-          
-          <button type="submit">Search</button>
-        </form>
-      </div>
+          <UserForm user={this.state.user} update={ this.submitForm } />
+          <hr />
+          <User user={this.state.user} />
+        </div>
+      </ApolloProvider >
     );
   }
 }
