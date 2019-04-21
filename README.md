@@ -1,4 +1,4 @@
-#Profile Finder
+# Profile Finder
 
 Uma pequena aplicação com React e Apollo para consumir dados da API do Github com GraphQL.
 
