@@ -12,12 +12,12 @@ class User extends Component {
           {({loading, error, data}) => {
             if (loading) return `Loading...`;
             if (error) return `ERROR: ${error}`;
-            console.log(data);
             return(
             <div>
               <p>
                 <img
                   src={data.user.avatarUrl}
+                  alt="Unavailable"
                   style={{width: '150px'}} />
               </p>
 
@@ -27,6 +27,15 @@ class User extends Component {
 
               <p>
                 <strong>Username: </strong>{data.user.login}
+              </p>
+
+              <p>
+                <strong>URL: </strong>
+                <a href={data.user.url}
+                  target="_blank"
+                  rel="noopener noreferrer" >
+                  {data.user.url}
+                </a>
               </p>
 
               <p>
