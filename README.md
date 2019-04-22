@@ -18,9 +18,17 @@ Ao fazer isso, sua aplicação funcionará normalmente.
 
 ## Rodando a aplicação
 
-Você deve executar o seguinte comando: 
+Antes de qualquer coisa, ao clonar o repositório, você deve instalar as dependências a partir do comando:
 
-### `npm start`
+```
+npm install
+```
+
+Em seguida, você deve executar o seguinte comando: 
+
+```
+npm start
+```
 
 E então, isso vai rodar a aplicação em modo de desenvolvedor.
 
