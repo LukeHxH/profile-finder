@@ -1,6 +1,6 @@
 # Profile Finder
 
-Uma pequena aplicação com React e Apollo para consumir dados da API do Github com GraphQL.
+Uma aplicação com React e Apollo para consumir dados da API do Github com GraphQL, que consiste em buscar dados de usuários do Github a partir do username fornecido.
 
 ## Configurações
 
